@@ -293,7 +293,7 @@ Aplikasi akan terbuka di browser pada `http://localhost:8501`
 
 ### Interface Aplikasi
 
-![Tampilan Dashboard](https://github.com/lutfiindraa/Machine-Learning-UAP/blob/main/assets/output1.png)
+![Tampilan Dashboard](https://github.com/lutfiindraa/Machine-Learning-UAP/blob/main/assets/contohprediksi.png)
 
 1. **Sidebar Navigation**
 
