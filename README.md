@@ -20,12 +20,12 @@ Sistem klasifikasi otomatis untuk mengenali **11 jenis kondisi cuaca** dari gamb
 3. [Preprocessing & Pemodelan](#-preprocessing--pemodelan)
    - [Tahap Preprocessing](#-tahap-preprocessing)
    - [Arsitektur Model](#-arsitektur-model)
-4. [Instalasi](#-instalasi)
-5. [Cara Menggunakan](#-cara-menggunakan)
-6. [Hasil & Analisis Model](#-hasil--analisis-model)
-   - [Tahap Preprocessing](#-evaluasi-model)
-   - [Tahap Preprocessing](#-insights-penting)
-7. [Tentang Pembuat](#-tentang-pembuat)
+4. [Hasil & Analisis Model](#-hasil--analisis-model)
+   - [Evaluasi Model](#-evaluasi-model)
+   - [Insight Penting](#-insights-penting)
+5. [Instalasi](#-instalasi)
+6. [Cara Menggunakan](#-cara-menggunakan)
+7. [Tentang Pembuat](#-%E2%80%8D-tentang-pembuat)
 8. [Lisensi](#-lisensi)
 
 ---
@@ -100,6 +100,13 @@ Dataset berasal dari **curated weather image collections** dengan 11 kategori ko
 
 ### Arsitektur Model
 
+Diagram berikut mengilustrasikan konsep dasar dari arsitektur *Convolutional Neural Network* (CNN) yang diterapkan. Secara umum, alur pemrosesan data terbagi menjadi dua tahapan utama:
+
+1.  **Feature Extraction**: Input diproses melalui serangkaian layer konvolusi (*Conv Layers*) dengan berbagai ukuran kernel ($k$) dan jumlah channel ($n$) untuk menangkap pola-pola visual penting (fitur) dari citra.
+2.  **Classification**: Fitur yang telah diekstraksi kemudian didatarkan (*Flatten*) menjadi vektor satu dimensi dan diteruskan ke *Fully Connected Layers* untuk memetakan fitur tersebut ke dalam probabilitas kelas output.
+
+![Ilustrasi Arsitektur CNN](https://github.com/lutfiindraa/Machine-Learning-UAP/blob/main/assets/image2.jpg)
+
 #### 1. **Base CNN (Custom Architecture)**
 
 ```
@@ -137,6 +144,73 @@ Dense(11, Softmax) → Output
 | **Batch Size**     | 32                       |
 | **Epochs**         | 50                       |
 | **Early Stopping** | Patience=5               |
+
+---
+
+## 📈 Hasil & Analisis Model
+
+### Evaluasi Model
+
+| Model         | Accuracy  | Precision | Recall    | F1-Score  | Parameter Count |
+| ------------- | --------- | --------- | --------- | --------- | --------------- |
+| **Base CNN**  | 82.5%     | 0.823     | 0.825     | 0.824     | 2.1M            |
+| **MobileNet** | 87.3%     | 0.872     | 0.873     | 0.872     | 3.5M            |
+| **ResNet50**  | **89.7%** | **0.898** | **0.897** | **0.897** | 25.6M           |
+
+### Penjelasan Metrik
+
+- **Accuracy**: Persentase prediksi yang benar dari semua prediksi
+- **Precision**: Dari prediksi positif, berapa yang benar-benar positif
+- **Recall**: Dari semua data positif sebenarnya, berapa yang terdeteksi
+- **F1-Score**: Harmonic mean dari Precision dan Recall
+
+### Insights Penting
+
+#### 1. **Performa Per Kategori**
+
+| Kategori  | Precision | Recall | Support | Notes                          |
+| --------- | --------- | ------ | ------- | ------------------------------ |
+| Dew       | 0.91      | 0.88   | 234     | Sangat mudah dikenali          |
+| Fogsmog   | 0.85      | 0.82   | 189     | Ada confusion dengan Rime      |
+| Frost     | 0.92      | 0.90   | 212     | Akurasi tinggi                 |
+| Glaze     | 0.80      | 0.84   | 156     | Sulit dibedakan dari Frost     |
+| Hail      | 0.88      | 0.86   | 201     | Cukup distinct                 |
+| Lightning | 0.96      | 0.94   | 178     | Paling mudah dikenali          |
+| Rain      | 0.83      | 0.85   | 267     | Ada confusion dengan Sandstorm |
+| Rainbow   | 0.95      | 0.93   | 145     | Sangat distinct                |
+| Rime      | 0.87      | 0.89   | 198     | Confusion dengan Glaze & Frost |
+| Sandstorm | 0.86      | 0.88   | 156     | Mirip dengan Rain/Fog          |
+| Snow      | 0.93      | 0.91   | 189     | Akurasi tinggi                 |
+
+#### 2. **Confusion Analysis**
+
+**Top 3 Confusion Pairs:**
+
+- Frost ↔ Glaze: Keduanya menampilkan kristal es, hanya berbeda konteks
+- Fogsmog ↔ Rime: Keduanya berwarna putih keabu-abuan
+- Rain ↔ Sandstorm: Visually similar, butuh context lebih untuk membedakan
+
+#### 3. **Model Behavior Insights**
+
+- **ResNet50** outperform dengan margin signifikan (89.7% vs 87.3% MobileNet)
+- **MobileNet** lebih efisien untuk inference (3.5M vs 25.6M parameter)
+- **Base CNN** sufficient untuk quick deployment tapi kurang akurat untuk production
+
+### Visualisasi Penting
+
+#### Training History (ResNet50)
+
+- **Accuracy Curve**: Convergence pada epoch 35, plateau di 89.7%
+- **Loss Curve**: Smooth decrease, indikasi training stabil
+- **Validation Gap**: Minimal (~1.5%), menunjukkan generalization yang baik
+
+#### Confusion Matrix (ResNet50)
+
+Di bawah ini adalah confusion matrix untuk ketiga model.
+
+| **CNN Base** | **Mobilenet** | **Resnet** |
+|---------|---------|-------------------|
+| ![Confusion CNN Base](https://github.com/lutfiindraa/Machine-Learning-UAP/blob/main/assets/output1.png) | ![Confusion Matrix Mobilenet](https://github.com/lutfiindraa/Machine-Learning-UAP/blob/main/assets/output2.png) | ![Confusion Matrix Resnet](https://github.com/lutfiindraa/Machine-Learning-UAP/blob/main/assets/output3.png) |
 
 ---
 
@@ -219,6 +293,8 @@ Aplikasi akan terbuka di browser pada `http://localhost:8501`
 
 ### Interface Aplikasi
 
+![Tampilan Dashboard](https://github.com/lutfiindraa/Machine-Learning-UAP/blob/main/assets/output1.png)
+
 1. **Sidebar Navigation**
 
    - Pilih halaman: Home, Prediction, Analytics, About
@@ -274,73 +350,6 @@ Machine-Learning-UAP/
 ├── requirements.txt                    # Python Dependencies
 └── README.md                           # Documentation
 ```
-
----
-
-## 📈 Hasil & Analisis Model
-
-### Evaluasi Model
-
-| Model         | Accuracy  | Precision | Recall    | F1-Score  | Parameter Count |
-| ------------- | --------- | --------- | --------- | --------- | --------------- |
-| **Base CNN**  | 82.5%     | 0.823     | 0.825     | 0.824     | 2.1M            |
-| **MobileNet** | 87.3%     | 0.872     | 0.873     | 0.872     | 3.5M            |
-| **ResNet50**  | **89.7%** | **0.898** | **0.897** | **0.897** | 25.6M           |
-
-### Penjelasan Metrik
-
-- **Accuracy**: Persentase prediksi yang benar dari semua prediksi
-- **Precision**: Dari prediksi positif, berapa yang benar-benar positif
-- **Recall**: Dari semua data positif sebenarnya, berapa yang terdeteksi
-- **F1-Score**: Harmonic mean dari Precision dan Recall
-
-### Insights Penting
-
-#### 1. **Performa Per Kategori**
-
-| Kategori  | Precision | Recall | Support | Notes                          |
-| --------- | --------- | ------ | ------- | ------------------------------ |
-| Dew       | 0.91      | 0.88   | 234     | Sangat mudah dikenali          |
-| Fogsmog   | 0.85      | 0.82   | 189     | Ada confusion dengan Rime      |
-| Frost     | 0.92      | 0.90   | 212     | Akurasi tinggi                 |
-| Glaze     | 0.80      | 0.84   | 156     | Sulit dibedakan dari Frost     |
-| Hail      | 0.88      | 0.86   | 201     | Cukup distinct                 |
-| Lightning | 0.96      | 0.94   | 178     | Paling mudah dikenali          |
-| Rain      | 0.83      | 0.85   | 267     | Ada confusion dengan Sandstorm |
-| Rainbow   | 0.95      | 0.93   | 145     | Sangat distinct                |
-| Rime      | 0.87      | 0.89   | 198     | Confusion dengan Glaze & Frost |
-| Sandstorm | 0.86      | 0.88   | 156     | Mirip dengan Rain/Fog          |
-| Snow      | 0.93      | 0.91   | 189     | Akurasi tinggi                 |
-
-#### 2. **Confusion Analysis**
-
-**Top 3 Confusion Pairs:**
-
-- Frost ↔ Glaze: Keduanya menampilkan kristal es, hanya berbeda konteks
-- Fogsmog ↔ Rime: Keduanya berwarna putih keabu-abuan
-- Rain ↔ Sandstorm: Visually similar, butuh context lebih untuk membedakan
-
-#### 3. **Model Behavior Insights**
-
-- **ResNet50** outperform dengan margin signifikan (89.7% vs 87.3% MobileNet)
-- **MobileNet** lebih efisien untuk inference (3.5M vs 25.6M parameter)
-- **Base CNN** sufficient untuk quick deployment tapi kurang akurat untuk production
-
-### Visualisasi Penting
-
-#### Training History (ResNet50)
-
-- **Accuracy Curve**: Convergence pada epoch 35, plateau di 89.7%
-- **Loss Curve**: Smooth decrease, indikasi training stabil
-- **Validation Gap**: Minimal (~1.5%), menunjukkan generalization yang baik
-
-#### Confusion Matrix (ResNet50)
-
-Di bawah ini adalah confusion matrix untuk ketiga model.
-
-| **CNN Base** | **Mobilenet** | **Resnet** |
-|---------|---------|-------------------|
-| ![Confusion CNN Base]() | ![Confusion Matrix Mobilenet]() | ![Confusion Matrix Resnet]() |
 
 ---
 
