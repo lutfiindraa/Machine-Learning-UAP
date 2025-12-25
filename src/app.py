@@ -18,11 +18,11 @@ st.set_page_config(
 )
 
 # --- TAMBAHAN: KONFIGURASI ID GOOGLE DRIVE ---
-# Masukkan ID File (bukan ID Folder) dari link Google Drive masing-masing model
+# Masukkan ID File SAJA (bukan link lengkap)
 MODEL_DRIVE_IDS = {
-    'model_base_cnn.keras': 'https://drive.google.com/file/d/1XS-me_zBmTh2897EAnDuE83aVCEjMKg4/view?usp=drive_link',       # Contoh: '1A2b3C...'
-    'model_mobilenet.keras': 'https://drive.google.com/file/d/1eqO0NkDxHafFaA057rLP1-z2St-4P1XM/view?usp=drive_link',
-    'model_resnet.keras': 'https://drive.google.com/file/d/1jIc9gCh0r-6jwS7oJGsrcH2Y8b2EWDS9/view?usp=drive_link'
+    'model_base_cnn.keras': '1XS-me_zBmTh2897EAnDuE83aVCEjMKg4',
+    'model_mobilenet.keras': '1eqO0NkDxHafFaA057rLP1-z2St-4P1XM',
+    'model_resnet.keras': '1jIc9gCh0r-6jwS7oJGsrcH2Y8b2EWDS9'
 }
 
 # --- FUNGSI EKSTRAKSI WARNA DOMINAN ---
