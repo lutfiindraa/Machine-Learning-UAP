@@ -11,18 +11,18 @@ Sistem klasifikasi otomatis untuk mengenali **11 jenis kondisi cuaca** dari gamb
 
 ## 📋 Daftar Isi
 
-1. [Tentang Proyek](#tentang-proyek)
-   - [Latar Belakang Masalah](#latar-belakang-masalah)
-   - [Tujuan Pengembangan](#tujuan-pengembangan)
-2. [Dataset](#dataset)
-3. [Preprocessing & Pemodelan](#preprocessing--pemodelan)
-4. [Instalasi](#instalasi)
-5. [Cara Menggunakan](#cara-menggunakan)
-6. [Hasil & Analisis Model](#hasil--analisis-model)
-7. [Demo Streamlit](#demo-streamlit)
-8. [Link Demo Live](#link-demo-live)
-9. [Tentang Pembuat](#tentang-pembuat)
-10. [Lisensi](#lisensi)
+1. [Tentang Proyek](#-tentang-proyek)
+   - [Latar Belakang Masalah](#-latar-belakang-masalah)
+   - [Tujuan Pengembangan](#-tujuan-pengembangan)
+2. [Dataset](#-dataset)
+3. [Preprocessing & Pemodelan](#-preprocessing--pemodelan)
+4. [Instalasi](#-instalasi)
+5. [Cara Menggunakan](#-cara-menggunakan)
+6. [Hasil & Analisis Model](#-hasil--analisis-model)
+7. [Demo Streamlit](#-demo-streamlit)
+8. [Link Demo Live](#-link-demo-live)
+9. [Tentang Pembuat](#-tentang-pembuat)
+10. [Lisensi](#-lisensi)
 
 ---
 
