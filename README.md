@@ -25,6 +25,8 @@ Sistem klasifikasi otomatis untuk mengenali **11 jenis kondisi cuaca** dari gamb
    - [Insight Penting](#-insights-penting)
 5. [Instalasi](#-instalasi)
 6. [Cara Menggunakan](#-cara-menggunakan)
+   - [Menjalankan Aplikasi Streamlit](#-menjalankan-aplikasi-streamlit)
+   - [Coba Versi Deploy](#-coba-versi-deploy)
 7. [Tentang Pembuat](#-%E2%80%8D-tentang-pembuat)
 8. [Lisensi](#-lisensi)
 
@@ -290,6 +292,37 @@ streamlit run app.py
 
 Aplikasi akan terbuka di browser pada `http://localhost:8501`
 
+### Struktur File Proyek
+
+```
+Machine-Learning-UAP/
+├── src/
+│   ├── app.py                          # Main Streamlit Application
+│   ├── classification_weather.ipynb     # Jupyter Notebook untuk training
+│   ├── data/
+│   │   ├── dew/                        # Dataset kategori Dew
+│   │   ├── fogsmog/                    # Dataset kategori Fogsmog
+│   │   ├── frost/                      # Dataset kategori Frost
+│   │   ├── glaze/                      # Dataset kategori Glaze
+│   │   ├── hail/                       # Dataset kategori Hail
+│   │   ├── lightning/                  # Dataset kategori Lightning
+│   │   ├── rain/                       # Dataset kategori Rain
+│   │   ├── rainbow/                    # Dataset kategori Rainbow
+│   │   ├── rime/                       # Dataset kategori Rime
+│   │   ├── sandstorm/                  # Dataset kategori Sandstorm
+│   │   └── snow/                       # Dataset kategori Snow
+│   └── model/
+│       ├── model_base_cnn.keras        # Base CNN Model
+│       ├── model_mobilenet.keras       # MobileNet Model
+│       └── model_resnet.keras          # ResNet Model
+├── pyproject.toml                      # Project Configuration
+├── requirements.txt                    # Python Dependencies
+└── README.md                           # Documentation
+```
+
+### Coba Versi Deploy
+
+- Buka [https://machine-learning-classification-weather.streamlit.app/](https://machine-learning-classification-weather.streamlit.app/)
 
 ### Interface Aplikasi
 
@@ -318,38 +351,6 @@ Aplikasi akan terbuka di browser pada `http://localhost:8501`
    - Penjelasan model architecture
    - Link ke code repository
 
-### Coba Versi Deploy
-
-- Buka [https://machine-learning-classification-weather.streamlit.app/](https://machine-learning-classification-weather.streamlit.app/)
-
-
-### Struktur File Proyek
-
-```
-Machine-Learning-UAP/
-├── src/
-│   ├── app.py                          # Main Streamlit Application
-│   ├── classification_weather.ipynb     # Jupyter Notebook untuk training
-│   ├── data/
-│   │   ├── dew/                        # Dataset kategori Dew
-│   │   ├── fogsmog/                    # Dataset kategori Fogsmog
-│   │   ├── frost/                      # Dataset kategori Frost
-│   │   ├── glaze/                      # Dataset kategori Glaze
-│   │   ├── hail/                       # Dataset kategori Hail
-│   │   ├── lightning/                  # Dataset kategori Lightning
-│   │   ├── rain/                       # Dataset kategori Rain
-│   │   ├── rainbow/                    # Dataset kategori Rainbow
-│   │   ├── rime/                       # Dataset kategori Rime
-│   │   ├── sandstorm/                  # Dataset kategori Sandstorm
-│   │   └── snow/                       # Dataset kategori Snow
-│   └── model/
-│       ├── model_base_cnn.keras        # Base CNN Model
-│       ├── model_mobilenet.keras       # MobileNet Model
-│       └── model_resnet.keras          # ResNet Model
-├── pyproject.toml                      # Project Configuration
-├── requirements.txt                    # Python Dependencies
-└── README.md                           # Documentation
-```
 
 ---
 
